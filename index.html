@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rakhi Hamper Celebration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-primary': '#C12A61', // Deep, festive pink
+              'brand-secondary': '#FBBF24', // Gold accent
+              'brand-light': '#FFFBF9', // Soft, warm off-white
+              'brand-dark': '#333333', // Softer dark text
+              'brand-green': '#16A34A', // Success green
+              'brand-muted': '#E5E7EB', // Muted gray for borders
+            },
+            fontFamily: {
+              sans: ['Montserrat', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+              fancy: ['Dancing Script', 'cursive'],
+              // --- ADDED ALGERIAN FONT ---
+              algerian: ['Algerian', 'serif'], // Added Algerian with a serif fallback
+            },
+            // --- UPDATED ANIMATIONS FOR TYPE & ERASE ---
+            keyframes: {
+                pulse: {
+                    '0%, 100%': { transform: 'scale(1)' },
+                    '50%': { transform: 'scale(1.03)' },
+                },
+                'typing-erase-long': {
+                    '0%, 10%': { width: '0' }, /* Start and brief pause */
+                    '45%': { width: '100%' }, /* Typing */
+                    '55%': { width: '100%' }, /* Pause after typing */
+                    '90%, 100%': { width: '0' }, /* Erasing and end pause */
+                },
+                'typing-erase-short': {
+                    '0%, 10%': { width: '0' },
+                    '45%': { width: '100%' },
+                    '55%': { width: '100%' },
+                    '90%, 100%': { width: '0' },
+                },
+                'blink-caret': {
+                    'from, to': { borderColor: 'transparent' },
+                    '50%': { borderColor: '#C12A61' }, 
+                }
+            },
+            animation: {
+                'pulse-slow': 'pulse 3s ease-in-out infinite',
+                // Combined type/erase and blink animations
+                'type-erase-long': 'typing-erase-long 5s steps(27, end) infinite, blink-caret .75s step-end infinite',
+                'type-erase-short': 'typing-erase-short 4s steps(20, end) infinite, blink-caret .75s step-end infinite',
+            }
+            // --- END OF UPDATED ANIMATIONS ---
+          }
+        }
+      }
+    </script>
+    <style>
+        .hamper-card.selected-card {
+            transform: scale(1.02);
+            border-color: #C12A61;
+            box-shadow: 0 4px 20px rgba(193, 42, 97, 0.25);
+        }
+        .custom-item-card.selected-item {
+            border-color: #C12A61;
+            background-color: #fff5f7;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(193, 42, 97, 0.2);
+        }
+        #place-order-btn:not(:disabled) {
+          background-image: linear-gradient(to right, #e85a8a, #c12a61);
+        }
+        .typewriter {
+            overflow: hidden; 
+            border-right: .15em solid #C12A61;
+            white-space: nowrap;
+            margin: 0;
+            letter-spacing: .1em;
+            width: fit-content; 
+        }
+        .animated-pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+        @keyframes animated-gradient-border {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        html {
+            padding: 12px; /* This creates the border */
+            background: linear-gradient(-45deg, #C12A61, #FBBF24, #e85a8a, #FBBF24, #C12A61);
+            background-size: 400% 400%;
+            animation: animated-gradient-border 15s ease infinite;
+        }
+        body {
+            margin: 0; /* Ensures the body content sits flush against the new border */
+        }
+        #subitem-modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #subitem-modal {
+            transition: all 0.3s ease-in-out;
+        }
+        #subitem-modal-backdrop.visible {
+            opacity: 1 !important;
+            pointer-events: all;
+        }
+        #subitem-modal-backdrop.visible #subitem-modal {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+    "react/": "https://esm.sh/react@^19.1.1/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="font-sans text-brand-dark" style="background-image: url('/images/Google_AI_Studio_2025-07-30T11_47_11.249Z.png'); background-size: cover; background-attachment: fixed;">
+
+    <header class="backdrop-blur-md shadow-sm" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/Gemini_Generated_Image_z3fripz3fripz3fr.png'); background-size: cover; background-position: center;">
+        <div class="container mx-auto px-4 py-4 text-center">
+            
+            <h1 class="text-6xl md:text-7xl font-fancy font-bold text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                Rakhi Celebration
+            </h1>
+            <p class="text-xl md:text-2xl font-fancy text-white tracking-wide mt-2" style="text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);">Thoughtfully Curated Gifts for a Cherished Bond</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-2">
+                <!-- Step 1: Pre-made Hampers -->
+                <section id="premade-hampers-section">
+                    <h2 class="typewriter animate-type-erase-long text-3xl font-algerian mb-1 text-brand-primary">Choose a Curated Hamper...</h2>
+                    <p class="text-white mb-6 ">Designed with love for the perfect celebration.</p>
+                    <div id="premade-hampers-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        </div>
+                </section>
+
+                <div class="my-10 flex items-center text-gray-400">
+                    <div class="flex-grow border-t border-brand-muted"></div>
+                    <span class="flex-shrink mx-4 text-sm font-semibold tracking-widest">OR</span>
+                    <div class="flex-grow border-t border-brand-muted"></div>
+                </div>
+
+                <section id="custom-hamper-section">
+                     <h2 class="typewriter animate-type-erase-short text-3xl font-algerian mb-1 text-brand-primary">...Or Build Your Own</h2>
+                    <p class="text-white mb-6">Select individual items to create a unique, personalized gift.</p>
+                    <div id="custom-items-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        </div>
+                </section>
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="sticky top-24">
+                    <div id="checkout-section" class="bg-white rounded-xl shadow-2xl p-6">
+                        <h2 class="text-2xl font-serif border-b border-brand-muted pb-3 mb-4 text-brand-dark">Order Summary</h2>
+                        <div id="order-summary-items" class="mb-4 min-h-[80px]">
+                            <p class="text-gray-400 italic text-center py-4">Your cart is empty.</p>
+                        </div>
+                        <div class="border-t border-brand-muted pt-4 flex justify-between items-center font-bold text-lg">
+                            <span class="text-brand-dark">Total</span>
+                            <span id="total-price" class="text-brand-primary">₹0</span>
+                        </div>
+
+                        <hr class="my-6 border-brand-muted">
+
+                        <h2 class="text-2xl font-serif mb-4 text-brand-dark">Recipient's Details</h2>
+                        <form id="recipient-form">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                    <input type="text" id="fullName" name="fullName" required class="p-3 mt-1 block w-full border-gray-200 border-2 rounded-lg shadow-sm focus:ring-brand-primary focus:border-brand-primary sm:text-sm transition-colors">
+                                </div>
+                                <div>
+                                    <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Complete Shipping Address</label>
+                                    <textarea id="address" name="address" rows="3" required class="p-3 mt-1 block w-full border-gray-200 border-2 rounded-lg shadow-sm focus:ring-brand-primary focus:border-brand-primary sm:text-sm transition-colors"></textarea>
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" required class="p-3 mt-1 block w-full border-gray-200 border-2 rounded-lg shadow-sm focus:ring-brand-primary focus:border-brand-primary sm:text-sm transition-colors">
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <button id="place-order-btn" disabled class="mt-6 w-full text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none transform hover:-translate-y-px">
+                            Place Order
+                        </button>
+
+                        <!-- QR & Screenshot Buttons -->
+                        <div class="mt-4 space-y-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <button id="display-qr-btn" class="flex items-center justify-center gap-2 bg-gray-800 text-white font-bold py-3 rounded-lg hover:bg-gray-700 transition-colors text-center">
+                                    Display QR Code
+                                </button>
+                                <a href="https://wa.me/918920132484" target="_blank" class="flex items-center justify-center gap-2 bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition-colors text-center">
+                                    Send Screenshot
+                                </a>
+                            </div>
+                            <div id="qr-code-container" class="hidden text-center pt-4">
+                                <img src="/images/WhatsApp Image 2025-08-02 at 4.18.41 PM.jpeg" alt="Payment QR Code" class="w-48 h-48 mx-auto rounded-lg shadow-md">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Customer Reviews Section -->
+    <section class="bg-brand-light py-12 sm:py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-serif text-center text-brand-dark mb-8">What Our Customers Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <p class="text-gray-600 italic mb-4">"The hampers were beautiful and delivered right on time. My brother loved it!"</p>
+                    <p class="font-bold text-brand-primary">- Ananya B</p>
+                </div>
+                <!-- Review 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <p class="text-gray-600 italic mb-4">"So easy to build a custom hamper. The quality of the products was amazing."</p>
+                    <p class="font-bold text-brand-primary">- Stuti K</p>
+                </div>
+                <!-- Review 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <p class="text-gray-600 italic mb-4">"Excellent service and beautiful packaging. Highly recommended for Rakhi gifts!"</p>
+                    <p class="font-bold text-brand-primary">- Shubham K</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-10 pb-6">
+        <div class="container mx-auto px-4 text-center">
+            <p class="font-serif text-2xl text-brand-secondary mb-4">Rakhi Celebration</p>
+            <p class="mb-4">H.no-25, New Delhi, India</p>
+            <p class="mb-4">Email: support@rakhicelebration.com | Phone: +91 8920132484</p>
+            <div class="flex justify-center gap-6 mb-6">
+                <a href="#" class="hover:text-brand-secondary transition-colors">Facebook</a>
+                <a href="#" class="hover:text-brand-secondary transition-colors">Instagram</a>
+                <a href="#" class="hover:text-brand-secondary transition-colors">Twitter</a>
+            </div>
+            <p class="text-sm text-gray-400">&copy; 2024 Rakhi Celebration. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4">
+        <div id="success-modal-content" class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 m-4 text-center max-w-sm w-full transform transition-all duration-300 scale-95 opacity-0 max-h-[90vh] overflow-y-auto">
+            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-brand-green">
+                <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h3 class="text-2xl font-serif mt-5 text-brand-dark">We Got Your Details!!!</h3>
+            <p class="text-gray-600 mt-2">Thank you! Your unique Order ID is:</p>
+            <p id="order-id-display" class="text-xl font-mono bg-brand-light p-2 rounded-lg my-4 text-brand-primary font-bold"></p>
+            
+            <!-- QR Code and Payment Info -->
+            <div class="my-6">
+                <img src="/images/WhatsApp Image 2025-08-02 at 4.18.41 PM.jpeg" alt="Payment QR Code" class="w-48 h-48 mx-auto rounded-lg shadow-md">
+                <p class="text-sm text-gray-600 mt-4">
+                    Kindly pay through this QR code or UPI ID to confirm your order and send a screenshot to 
+                    <a href="https://wa.me/918920132484" target="_blank" class="text-brand-primary hover:text-brand-secondary underline font-semibold">8920132484</a>.
+                </p>
+            </div>
+
+            <!-- Payment Buttons -->
+            <div id="payment-options" class="space-y-3">
+                <p class="text-center font-semibold text-gray-700">Pay with your favorite app:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <a href="#" id="google-pay-link" class="flex items-center justify-center gap-2 bg-white border border-gray-300 text-gray-800 font-bold py-3 rounded-lg hover:shadow-lg transition-shadow text-center">
+                        <img src="/images/gpay.jpg" alt="Google Pay" class="w-6 h-6 object-contain">
+                        <span>Google Pay</span>
+                    </a>
+                    <a href="#" id="phonepe-link" class="flex items-center justify-center gap-2 bg-white border border-gray-300 text-gray-800 font-bold py-3 rounded-lg hover:shadow-lg transition-shadow text-center">
+                        <img src="/images/phone pay.png" alt="PhonePe" class="w-6 h-6 object-contain">
+                        <span>PhonePe</span>
+                    </a>
+                    <a href="#" id="paytm-link" class="flex items-center justify-center gap-2 bg-white border border-gray-300 text-gray-800 font-bold py-3 rounded-lg hover:shadow-lg transition-shadow text-center">
+                        <img src="/images/paytm.jpg" alt="Paytm" class="w-6 h-6 object-contain">
+                        <span>Paytm</span>
+                    </a>
+                </div>
+                <button id="close-modal-btn" class="w-full bg-brand-primary text-white font-bold py-3 rounded-lg hover:opacity-90 transition-opacity mt-3">
+                    Continue Shopping
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sub-item Pop-up Modal -->
+    <div id="subitem-modal-backdrop" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div id="subitem-modal" class="relative bg-white rounded-2xl shadow-xl p-4 sm:p-6 m-4 w-full max-w-sm sm:max-w-lg md:max-w-2xl transform transition-all duration-300 scale-95 opacity-0 max-h-[90vh] overflow-y-auto">
+            <button id="close-subitem-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h2 id="subitem-modal-title" class="text-2xl md:text-3xl font-serif mb-4 sm:mb-6 text-center text-brand-dark">Choose an Option</h2>
+            <div id="subitem-modal-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Sub-items will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+    <script type="module" src="/index.js"></script>
+
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
